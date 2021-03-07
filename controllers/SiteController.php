@@ -72,7 +72,7 @@ class SiteController extends Controller
      */
     public function actionIndex()
     {
-        Yii::$app->response->format = \yii\web\Response::FORMAT_RAW;
+        Yii::$app->response->format = Response::FORMAT_RAW;
 		
         $result = [
             'state' => false,
@@ -141,7 +141,7 @@ class SiteController extends Controller
 
     public function actionCheck()
     {
-        Yii::$app->response->format = \yii\web\Response::FORMAT_RAW;
+        Yii::$app->response->format = Response::FORMAT_RAW;
 
         $getData = Yii::$app->request->get();
 
@@ -183,7 +183,7 @@ class SiteController extends Controller
 
     public function actionStreams()
     {
-        Yii::$app->response->format = \yii\web\Response::FORMAT_HTML;
+        Yii::$app->response->format = Response::FORMAT_HTML;
 
         $getData = Yii::$app->request->get();
 
@@ -211,7 +211,7 @@ class SiteController extends Controller
 
     public function actionNews()
     {
-        Yii::$app->response->format = \yii\web\Response::FORMAT_RAW;
+        Yii::$app->response->format = Response::FORMAT_RAW;
 
         $getData = Yii::$app->request->get();
 
@@ -234,7 +234,7 @@ class SiteController extends Controller
 
     public function actionOnline()
     {
-        Yii::$app->response->format = \yii\web\Response::FORMAT_RAW;
+        Yii::$app->response->format = Response::FORMAT_RAW;
 
         $getData = Yii::$app->request->get();
 
@@ -254,7 +254,7 @@ class SiteController extends Controller
 
     public function actionLastVideo()
     {
-        Yii::$app->response->format = \yii\web\Response::FORMAT_RAW;
+        Yii::$app->response->format = Response::FORMAT_RAW;
 
         $getData = Yii::$app->request->get();
 

@@ -3,3 +3,7 @@
 /.idea/
 /web/assets/
 /runtime/
+
+/docker/logs/
+
+/config/db.php
