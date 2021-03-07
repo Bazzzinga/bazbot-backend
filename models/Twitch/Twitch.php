@@ -6,14 +6,12 @@ use app\models\Token;
 use Yii;
 use yii\helpers\ArrayHelper;
 use yii\helpers\Json;
-use yii\httpclient\Client;
 
 class Twitch implements \app\models\StreamCheckInterface
 {
     const TOKEN_SLUG = 'twitch';
 
     const REQUEST_TRIES_MAX = 5;
-
 
     private $apiUrl = 'https://api.twitch.tv/helix/streams/?user_login=';
 
@@ -103,8 +101,6 @@ class Twitch implements \app\models\StreamCheckInterface
 
         $clientId = $this->clientIds[0];
 
-        //$token = $this->tokens[0];
-
         $token = $this->getToken();
 
         curl_setopt_array($ch, [
@@ -175,7 +171,7 @@ class Twitch implements \app\models\StreamCheckInterface
 
     private function updateToken()
     {
-        $client = new Client();
+        $ch = curl_init();
 
         $url = 'https://id.twitch.tv/oauth2/token';
 
@@ -184,14 +180,17 @@ class Twitch implements \app\models\StreamCheckInterface
         $url .= '&grant_type=' . 'client_credentials';
         $url .= '&scope=' . 'viewing_activity_read';
 
-        $response = $client->createRequest()
-            ->setUrl($url)
-            ->setMethod('POST')
-            ->send();
+        curl_setopt_array($ch, [
+            CURLOPT_POST => true,
+            CURLOPT_URL            => $url
+        ]);
 
-        if ($response->isOk) {
+        $response = curl_exec($ch);
+        curl_close($ch);
 
-            $data = $response->getData();
+        if ($response) {
+
+            $data = Json::decode($response);
 
             $token = $this->getTokenModel() ?: new Token();
             $token->token = $data['access_token'];
